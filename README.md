@@ -10,3 +10,7 @@ Basic crud api created in the dotnet.
 - Delete Employee
 - Get Employee
 - Get Employees
+
+#### Used Packages
+- Microsoft.EntityFrameworkCore.SqlServer 6.0.25
+- Microsoft.EntityFrameworkCore.Tools 6.0.25
