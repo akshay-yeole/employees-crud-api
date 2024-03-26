@@ -1,4 +1,5 @@
-using Employees.Web.Api.Data;
+using EMS.Core;
+using EMS.Core.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,11 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<AppDbContext>(
-    options => options.UseSqlServer(
-        builder.Configuration.GetConnectionString("Default")
-    ));
+builder.Services.AddCoreServices(builder.Configuration);
 
 var app = builder.Build();
 

@@ -1,7 +1,6 @@
-﻿using Employees.Web.Api.Data;
-using Employees.Web.Api.models;
+﻿using EMS.Core.Models;
+using EMS.Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Employees.Web.Api.Controllers
 {
@@ -9,34 +8,32 @@ namespace Employees.Web.Api.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IEmployeeService _employeeService;
 
-        public EmployeesController(AppDbContext dbContext)
+        public EmployeesController(IEmployeeService employeeService)
         {
-            _dbContext = dbContext;
+            _employeeService = employeeService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllEmployees()
         {
-            var employees = await _dbContext.Employees.ToListAsync();
-            return Ok(employees);
+            var res = await _employeeService.GetAllEmployees();
+            return Ok(res);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddEmployee([FromBody] Employee employee)
         {
-            employee.Id = Guid.NewGuid();
-            await _dbContext.Employees.AddAsync(employee);
-            await _dbContext.SaveChangesAsync();
-            return Ok(employee);
+            await _employeeService.AddEmployee(employee);
+            return Ok();
         }
 
         [HttpGet]
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetEmployeeById([FromRoute] Guid id)
         {
-            var employee = await _dbContext.Employees.FirstOrDefaultAsync(x => x.Id == id);
+            var employee = await _employeeService.GetEmployeeById(id);
             if (employee == null)
             {
                 return NotFound();
@@ -48,36 +45,15 @@ namespace Employees.Web.Api.Controllers
         [Route("{id:Guid}")]
         public async Task<IActionResult> UpdateEmployeeById([FromRoute] Guid id, Employee employeeUpdateRequestModel )
         {
-           var employee = await _dbContext.Employees.FindAsync(id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
-
-            employee.Name = employeeUpdateRequestModel.Name;
-            employee.Email = employeeUpdateRequestModel.Email;
-            employee.Phone = employeeUpdateRequestModel.Phone;
-            employee.Salary = employeeUpdateRequestModel.Salary;
-            employee.Department = employeeUpdateRequestModel.Department;
-
-            await _dbContext.SaveChangesAsync();
-
-            return Ok(employee);
+           await _employeeService.UpdateEmployeeById(id,employeeUpdateRequestModel);
+            return Ok();
         }
 
         [HttpDelete]
         [Route("{id:Guid}")]
         public async Task<IActionResult> DeleteEmployee([FromRoute] Guid id )
         {
-            var employee = await _dbContext.Employees.FindAsync(id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
-
-            _dbContext.Employees.Remove(employee);
-            await _dbContext.SaveChangesAsync();
-
+            await _employeeService.DeleteEmployee(id);
             return Ok();
         }
     }

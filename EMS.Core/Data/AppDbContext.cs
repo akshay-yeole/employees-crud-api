@@ -1,7 +1,7 @@
-﻿using Employees.Web.Api.models;
+﻿using EMS.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Employees.Web.Api.Data
+namespace EMS.Core.Data
 {
     public class AppDbContext : DbContext
     {
