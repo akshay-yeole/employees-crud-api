@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EMS.Core\EMS.Core.csproj" />
   </ItemGroup>
 

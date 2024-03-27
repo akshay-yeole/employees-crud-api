@@ -16,6 +16,8 @@ namespace Employees.Web.Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Employee>), 200)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetAllEmployees()
         {
             var res = await _employeeService.GetAllEmployees();
@@ -23,6 +25,9 @@ namespace Employees.Web.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(Employee), 201)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> AddEmployee([FromBody] Employee employee)
         {
             await _employeeService.AddEmployee(employee);
@@ -31,6 +36,8 @@ namespace Employees.Web.Api.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
+        [ProducesResponseType(typeof(Employee), 200)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetEmployeeById([FromRoute] Guid id)
         {
             var employee = await _employeeService.GetEmployeeById(id);
@@ -43,6 +50,8 @@ namespace Employees.Web.Api.Controllers
 
         [HttpPut]
         [Route("{id:Guid}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateEmployeeById([FromRoute] Guid id, Employee employeeUpdateRequestModel )
         {
            await _employeeService.UpdateEmployeeById(id,employeeUpdateRequestModel);
@@ -51,6 +60,8 @@ namespace Employees.Web.Api.Controllers
 
         [HttpDelete]
         [Route("{id:Guid}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteEmployee([FromRoute] Guid id )
         {
             await _employeeService.DeleteEmployee(id);
