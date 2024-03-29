@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "94407088-9977-430a-9138-4f2b114f4d6b",
+		"name": "EMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32795243"
+	},
+	"item": [
+		{
+			"name": "Get Employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://localhost:7242/api/employees"
+			},
+			"response": []
+		},
+		{
+			"name": "Get EmployeesById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7242/api/employees/{{employeeId}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"api",
+						"employees",
+						"{{employeeId}}"
+					],
+					"query": [
+						{
+							"key": "employeeId",
+							"value": "employeeId",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Employee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"sample-user\",\r\n  \"email\": \"sample@xyz.com\",\r\n  \"phone\": 123456789,\r\n  \"salary\": 12000,\r\n  \"department\": \"SALES\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7242/api/employees/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Employee",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://localhost:7242/api/employees/{{employeeId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Employee",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n        \"id\": \"8c11fa1e-21b1-45bc-9b22-4273ee131951\",\r\n        \"name\": \"sales-updated\",\r\n        \"email\": \"sales@outlok.com\",\r\n        \"phone\": 987654,\r\n        \"salary\": 12000,\r\n        \"department\": \"sales-dept\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:7242/api/employees/{{employeeId}}"
+			},
+			"response": []
+		}
+	]
+}
